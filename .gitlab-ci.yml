@@ -1,0 +1,16 @@
+stages:
+  - build
+
+# build and upload project to registry
+docker_build:
+  stage: build
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - make build
+    - make push
+  only:
+    - master
+    - tags
+  tags:
+    - bash_docker

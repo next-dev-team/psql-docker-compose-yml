@@ -1,0 +1,16 @@
+# dotenv environment variables file
+.env
+docker/.env
+overwrite.env
+
+# docker
+docker/mongo/data
+docker/database/*
+docker/logs/*
+docker/upload/*
+
+# MacOS
+*.DS_Store
+
+#dist
+dist
