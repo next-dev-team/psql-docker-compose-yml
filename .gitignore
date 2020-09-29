@@ -4,7 +4,9 @@ docker/.env
 overwrite.env
 
 # docker
-docker/mongo/data
+docker/mongo
+docker/mongo-rs-1
+docker/mongo-rs-2
 docker/database/*
 docker/logs/*
 docker/upload/*
