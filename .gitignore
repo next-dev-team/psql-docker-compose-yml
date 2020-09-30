@@ -4,12 +4,13 @@ docker/.env
 overwrite.env
 
 # docker
-docker/mongo
-docker/mongo-rs-1
-docker/mongo-rs-2
+docker/mongo1
+docker/mongo2
+docker/mongo3
 docker/database/*
 docker/logs/*
 docker/upload/*
+docker/*.override.yml
 
 # MacOS
 *.DS_Store
