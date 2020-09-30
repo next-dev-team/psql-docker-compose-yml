@@ -2,7 +2,7 @@ version: "2"
 services:
   mongo1:
     hostname: mongo1.master.sabay.com
-    container_name: localmongo1
+    container_name: mongo1.master.sabay.com
     image: docker-registry.sabay.com/docker/mongodb:latest
     labels:
       - "traefik.enable=true"
@@ -11,6 +11,8 @@ services:
       - "traefik.frontend.rule=Host:mongo1.master.sabay.com"
       - "traefik.frontend.passHostHeader=true"
     restart: always
+    volumes:
+      - /srv/data/mongo/data:/data/db
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
     networks:
       - database
@@ -18,7 +20,7 @@ services:
 
   mongo2:
     hostname: mongo2.master.sabay.com
-    container_name: localmongo2
+    container_name: mongo2.master.sabay.com
     image: docker-registry.sabay.com/docker/mongodb:latest
     labels:
       - "traefik.enable=true"
@@ -34,7 +36,7 @@ services:
 
   mongo3:
     hostname: mongo3.master.sabay.com
-    container_name: localmongo3
+    container_name: mongo3.master.sabay.com
     image: docker-registry.sabay.com/docker/mongodb:latest
     labels:
       - "traefik.enable=true"
