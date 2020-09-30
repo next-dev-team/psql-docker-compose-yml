@@ -46,7 +46,7 @@ services:
       - mongo2
       - mongo3
     volumes:
-      - .:/scripts
+      - ./scripts:/scripts
     restart: "no"
     entrypoint: ["bash", "/scripts/mongo_setup.sh"]
     networks:

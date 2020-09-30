@@ -28,5 +28,5 @@ deploy:
 	@echo "get $(DEPLOY_DIR)/overwrite.env ./overwrite.env" | sftp $(TARGET)
 	$(MAKE) config
 	@echo "put .env $(DEPLOY_DIR)/.env" | sftp $(TARGET)
-	@echo "put mongo_setup.sh $(DEPLOY_DIR)/mongo_setup.sh" | sftp $(TARGET)
+	@echo "put scripts/mongo_setup-$(CI_ENVIRONMENT_NAME).sh $(DEPLOY_DIR)/mongo_setup.sh" | sftp $(TARGET)
 	@echo "put docker-compose-$(CI_ENVIRONMENT_NAME).yml $(DEPLOY_DIR)/docker-compose.yml" | sftp $(TARGET)

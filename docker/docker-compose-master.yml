@@ -1,37 +1,52 @@
 version: "2"
 services:
   mongo1:
-    hostname: mongo1
+    hostname: mongo1.master.sabay.com
     container_name: localmongo1
     image: docker-registry.sabay.com/docker/mongodb:latest
-    expose:
-      - 27017
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=27017"
+      - "traefik.docker.network=proxy"
+      - "traefik.frontend.rule=Host:mongo1.master.sabay.com"
+      - "traefik.frontend.passHostHeader=true"
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
     networks:
-      - sabay_docker
+      - database
+      - proxy
 
   mongo2:
-    hostname: mongo2
+    hostname: mongo2.master.sabay.com
     container_name: localmongo2
     image: docker-registry.sabay.com/docker/mongodb:latest
-    expose:
-      - 27017
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=27017"
+      - "traefik.docker.network=proxy"
+      - "traefik.frontend.rule=Host:mongo2.master.sabay.com"
+      - "traefik.frontend.passHostHeader=true"
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
     networks:
-      - sabay_docker
+      - database
+      - proxy
 
   mongo3:
-    hostname: mongo3
+    hostname: mongo3.master.sabay.com
     container_name: localmongo3
     image: docker-registry.sabay.com/docker/mongodb:latest
-    expose:
-      - 27017
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=27017"
+      - "traefik.docker.network=proxy"
+      - "traefik.frontend.rule=Host:mongo3.master.sabay.com"
+      - "traefik.frontend.passHostHeader=true"
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
     networks:
-      - sabay_docker
+      - database
+      - proxy
 
   mongosetup:
     image: docker-registry.sabay.com/docker/mongodb:latest
@@ -44,8 +59,10 @@ services:
     restart: "no"
     entrypoint: [ "bash", "/scripts/mongo_setup.sh"]
     networks:
-      - sabay_docker
+      - database
 
 networks:
-  sabay_docker:
+  database:
+    external: true
+  proxy:
     external: true
