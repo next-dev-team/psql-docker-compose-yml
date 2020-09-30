@@ -1,35 +1,41 @@
 version: "2"
 services:
   mongo1:
-    hostname: mongo1
-    container_name: localmongo1
+    hostname: mongodb
+    container_name: mongodb
     image: docker-registry.sabay.com/docker/mongodb:latest
-    expose:
-      - 27017
+    ports:
+      - 27017:27017
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+    volumes:
+      - ./mongo1/data:/data/db
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
     networks:
       - sabay_docker
 
   mongo2:
-    hostname: mongo2
-    container_name: localmongo2
+    hostname: mongodb2
+    container_name: mongodb2
     image: docker-registry.sabay.com/docker/mongodb:latest
-    expose:
-      - 27017
+    ports:
+      - 27018:27017
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+    volumes:
+      - ./mongo2/data:/data/db
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
     networks:
       - sabay_docker
 
   mongo3:
-    hostname: mongo3
-    container_name: localmongo3
+    hostname: mongodb3
+    container_name: mongodb3
     image: docker-registry.sabay.com/docker/mongodb:latest
-    expose:
-      - 27017
+    ports:
+      - 27019:27017
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+    volumes:
+      - ./mongo3/data:/data/db
+    entrypoint: ["/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0"]
     networks:
       - sabay_docker
 
@@ -42,7 +48,7 @@ services:
     volumes:
       - .:/scripts
     restart: "no"
-    entrypoint: [ "bash", "/scripts/mongo_setup.sh"]
+    entrypoint: ["bash", "/scripts/mongo_setup.sh"]
     networks:
       - sabay_docker
 
